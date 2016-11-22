@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/llyt_tmp"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_verify_message"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:hint="请输入您的确认信息，限150字"
+            android:maxLength="150"
+            android:scrollbars="vertical"/>
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="发送"/>
+
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/contact_log_fragment"
+        android:name="com.zhengjy.test.ui.fragment.ContactLogFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</FrameLayout>
