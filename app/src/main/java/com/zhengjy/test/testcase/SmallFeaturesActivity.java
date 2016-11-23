@@ -19,7 +19,7 @@ public class SmallFeaturesActivity extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 100; i++) {
+                for (int i = 0; i < 3; i++) {
                     Log.d("liushui", "add shortcut: " + i);
                     addShortcut("shortcut" + i);
                     try {
@@ -35,7 +35,7 @@ public class SmallFeaturesActivity extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 100; i++) {
+                for (int i = 0; i < 3; i++) {
                     Log.d("liushui", "remove shortcut: " + i);
                     removeShortcut("shortcut" + i);
                     try {
