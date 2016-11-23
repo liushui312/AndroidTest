@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 /**
- * @author yl1081 Avoid double click almost at the same time
+ *   Avoid double click almost at the same time
  */
 public abstract class OnNoDoubleClickListener implements OnClickListener {
     private static final String TAG = OnNoDoubleClickListener.class.getSimpleName();

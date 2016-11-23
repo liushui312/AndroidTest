@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.zhengjy.test.data.bean.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,8 +23,8 @@ public class MainListAdapt extends BaseAdapter {
     private Context mContext;
     private List<Item> mList;
 
-    public MainListAdapt(List<Item> list, Context context) {
-        mList = list;
+    public MainListAdapt(Context context) {
+        mList = new ArrayList<>();
         mContext = context;
     }
 

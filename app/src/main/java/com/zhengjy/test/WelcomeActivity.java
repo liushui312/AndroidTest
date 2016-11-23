@@ -1,4 +1,4 @@
-package com.zhengjy.test.ui.activity;
+package com.zhengjy.test;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.zhengjy.test.R;
 import com.zhengjy.test.util.CirclePageIndicator;
 
 import java.util.ArrayList;
@@ -47,12 +46,8 @@ public class WelcomeActivity extends Activity {
         isFirstIn = preferences.getBoolean(IS_FIRST_IN_KEY, true);
         if (isFirstIn) {
             Log.d(TAG, "is first in");
-            long time1 = System.currentTimeMillis();
             setContentView(R.layout.activity_welcome);
-            Log.d(TAG, "time1: " + (System.currentTimeMillis() - time1));
-            long time2 = System.currentTimeMillis();
             initView();
-            Log.d(TAG, "time2: " + (System.currentTimeMillis() - time2));
         } else {
             Log.d(TAG, "not first in");
             gotoLoginActivity(false);
@@ -64,10 +59,10 @@ public class WelcomeActivity extends Activity {
         List<View> views = new ArrayList<>();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        for (int i = 0; i < mPics.length; i++) {
+        for (int mPic : mPics) {
             ImageView iv = new ImageView(this);
             iv.setLayoutParams(params);
-            iv.setImageResource(mPics[i]);
+            iv.setImageResource(mPic);
             views.add(iv);
         }
         mAdapter = new ViewPagerAdapter(views);
@@ -116,7 +111,7 @@ public class WelcomeActivity extends Activity {
     }
 
     private void gotoLoginActivity(boolean isFirstIn) {
-        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
         intent.putExtra(IS_FIRST_IN_KEY, isFirstIn);
         startActivity(intent);
         finish();
@@ -152,7 +147,5 @@ public class WelcomeActivity extends Activity {
             }
             return 0;
         }
-
-
     }
 }

@@ -1,14 +1,11 @@
-package com.zhengjy.test.ui.activity;
+package com.zhengjy.test;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.ArrayMap;
 import android.util.Log;
 import android.widget.ListView;
 
 import com.zhengjy.test.data.bean.Item;
-import com.zhengjy.test.MainListAdapt;
-import com.zhengjy.test.R;
 import com.zhengjy.test.util.IntentUtils;
 
 import java.util.ArrayList;
@@ -75,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         list.add(new Item("LockActivity", IntentUtils.LOCK_ACTION));
         list.add(new Item("Crumb", IntentUtils.CRUMB_ACTION));
         list.add(new Item("ComImage", IntentUtils.COM_IMAGE_ACTION));
-        mAdapt = new MainListAdapt(list, this);
+        mAdapt = new MainListAdapt(this);
+        mAdapt.updateList(list);
     }
 
     private void initView() {
