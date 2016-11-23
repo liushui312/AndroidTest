@@ -26,8 +26,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        initData();
-        initView();
+        init();
+    }
+
+    private void init() {
+        List<Item> list = new ArrayList<>();
+        list.add(new Item("SmallFeaturesActivity", IntentUtils.SMALL_ACTION));
+        list.add(new Item("LockActivity", IntentUtils.LOCK_ACTION));
+        list.add(new Item("Crumb", IntentUtils.CRUMB_ACTION));
+        list.add(new Item("ComImage", IntentUtils.COM_IMAGE_ACTION));
+        mAdapt = new MainListAdapt(this);
+        mAdapt.updateList(list);
+        mListView.setAdapter(mAdapt);
     }
 
     @Override
@@ -65,19 +75,4 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
     }
-
-    private void initData() {
-        List<Item> list = new ArrayList<>();
-        list.add(new Item("SmallFeaturesActivity", IntentUtils.SMALL_ACTION));
-        list.add(new Item("LockActivity", IntentUtils.LOCK_ACTION));
-        list.add(new Item("Crumb", IntentUtils.CRUMB_ACTION));
-        list.add(new Item("ComImage", IntentUtils.COM_IMAGE_ACTION));
-        mAdapt = new MainListAdapt(this);
-        mAdapt.updateList(list);
-    }
-
-    private void initView() {
-        mListView.setAdapter(mAdapt);
-    }
-
 }

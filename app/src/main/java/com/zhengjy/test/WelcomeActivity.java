@@ -21,7 +21,7 @@ import java.util.List;
 
 
 /**
- * Created by yl1222 on 2016/11/10.
+ * Created by zhengjy on 2016/11/10.
  */
 
 public class WelcomeActivity extends Activity {

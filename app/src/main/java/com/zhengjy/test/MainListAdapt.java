@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by yl1222 on 2016/9/8.
+ * Created by zhengjy on 2016/9/8.
  */
 public class MainListAdapt extends BaseAdapter {
 
@@ -76,7 +76,6 @@ public class MainListAdapt extends BaseAdapter {
 
     static class ViewHolder {
         @BindView(R.id.name) TextView name;
-
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
