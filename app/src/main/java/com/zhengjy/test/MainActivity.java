@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new Item("LockActivity", IntentUtils.LOCK_ACTION));
         list.add(new Item("Crumb", IntentUtils.CRUMB_ACTION));
         list.add(new Item("ComImage", IntentUtils.COM_IMAGE_ACTION));
+        list.add(new Item("CustomView", IntentUtils.CUSTOM_VIEW_ACTION));
         mAdapt = new MainListAdapt(this);
         mAdapt.updateList(list);
         mListView.setAdapter(mAdapt);

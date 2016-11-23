@@ -23,14 +23,6 @@
             </intent-filter>-->
         </activity>
 
-        <activity android:name=".ui.activity.LoginActivity">
-
-        </activity>
-
-        <activity android:name=".ui.activity.GroupApplicationActivity">
-
-        </activity>
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.ZHENGJY_MAIN"/>
@@ -41,6 +33,14 @@
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".testcase.CustomView.CustomViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.ZHENGJY_CUSTOM_VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 

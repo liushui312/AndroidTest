@@ -1,5 +1,6 @@
 package com.zhengjy.common.utils;
 
+import android.app.Activity;
 import android.content.Context;
 
 /**
@@ -38,5 +39,11 @@ public class ScreenUtils {
 
     public static int pxToDpCeilInt(Context context, float px) {
         return (int)(pxToDp(context, px) + 0.5f);
+    }
+
+    public static int[] getScreenSize(Activity activity) {
+        int width = activity.getWindowManager().getDefaultDisplay().getWidth();
+        int height = activity.getWindowManager().getDefaultDisplay().getHeight();
+        return new int[] {width, height};
     }
 }
