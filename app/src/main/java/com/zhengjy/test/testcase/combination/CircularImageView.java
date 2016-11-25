@@ -1,19 +1,23 @@
 package com.zhengjy.test.testcase.combination;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
 public class CircularImageView extends View {
 
-    protected int viewWidth;
-    protected int viewHeight;
+    private static final String TAG = "CircularImageView";
+    protected int mViewWidth;
+    protected int mViewHeight;
 
-    protected ArrayList<Bitmap> bmps;
+    private List<Paint> mPaints;
+    private ArrayList<Bitmap> mBitmaps;
 
     public CircularImageView(Context context) {
         super(context);
@@ -36,28 +40,36 @@ public class CircularImageView extends View {
         setMeasuredDimension(dimen, dimen);
     }
 
+    /**
+     *   Sets a List of Bitmap as the content of this CircularImageView
+     *
+     * @param bitmaps The bitmaps to set
+     */
     public void setImageBitmaps(ArrayList<Bitmap> bitmaps) {
-        if (bitmaps == null)
-            throw new IllegalArgumentException("bitmaps can not be Null");
-        if (bitmaps.size() > JoinLayout.max())
-            throw new IllegalArgumentException("bitmaps size can not be greater than "
-                    + JoinLayout.max());
-        this.bmps = bitmaps;
+        if (bitmaps == null) {
+            throw new IllegalArgumentException("bitmaps can not be null");
+        }
+        if (bitmaps.size() > JoinLayout.HEAD_COUNT_MAX) {
+            throw new IllegalArgumentException("bitmaps size can not be greater than " + JoinLayout.HEAD_COUNT_MAX);
+        }
+        mBitmaps = bitmaps;
+        mPaints = JoinBitmaps.getPaints(mViewWidth, bitmaps);
         invalidate();
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        viewWidth = w;
-        viewHeight = h;
-        viewWidth = viewHeight = Math.min(w, h);
+        mViewWidth = w;
+        mViewHeight = h;
+        mViewWidth = mViewHeight = Math.min(w, h);
+        mPaints = JoinBitmaps.getPaints(mViewWidth, mBitmaps);
     }
 
     @Override
     public void onDraw(Canvas canvas) {
-        if (viewWidth > 0 && viewHeight > 0) {
-            JoinBitmaps.join(canvas, viewWidth, bmps, 0.15f);
+        if (mViewWidth > 0 && mViewHeight > 0) {
+            JoinBitmaps.join(canvas, mPaints, mViewWidth);
         }
     }
 }

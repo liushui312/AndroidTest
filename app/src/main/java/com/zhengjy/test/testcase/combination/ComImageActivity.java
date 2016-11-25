@@ -3,11 +3,9 @@ package com.zhengjy.test.testcase.combination;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.View;
 
 import com.zhengjy.test.R;
 
@@ -80,9 +78,5 @@ public class ComImageActivity extends Activity {
         mImageView3.setImageBitmaps(mBmps3);
         mImageView4.setImageBitmaps(mBmps4);
         mImageView5.setImageBitmaps(mBmps5);
-    }
-
-    public void onBitmapBtnClick(View view) {
-        startActivity(new Intent(this, BitmapActivity.class));
     }
 }

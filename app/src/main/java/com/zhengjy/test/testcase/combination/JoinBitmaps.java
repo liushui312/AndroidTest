@@ -1,132 +1,93 @@
 package com.zhengjy.test.testcase.combination;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Shader;
 import android.util.Log;
 
 public class JoinBitmaps {
 
-    private static final String TAG = JoinBitmaps.class.getSimpleName();
+    private static final String TAG = "JoinBitmaps";
 
-    public static final void join(Canvas canvas, int dimension, List<Bitmap> bitmaps) {
-        if (bitmaps == null)
-            return;
-        int count = Math.min(bitmaps.size(), JoinLayout.max());
-        float[] size = JoinLayout.size(count);
-        join(canvas, dimension, bitmaps, count, size);
-    }
+    /**
+     *  获取绘制每个头像的画笔
+     * @param width  头像的宽度
+     * @param bitmaps 头像 bitmap
+     * @return 画笔
+     */
+    public static final List<Paint> getPaints(int width, List<Bitmap> bitmaps) {
+        if (bitmaps == null) {
+            Log.e(TAG, "bitmaps is null");
+            return null;
+        }
+        int count = Math.min(bitmaps.size(), JoinLayout.HEAD_COUNT_MAX);
+        float[] scales = JoinLayout.getScales(count);
+        if (scales == null) {
+            return null;
+        }
 
-    public static final void join(Canvas canvas, int dimension, List<Bitmap> bitmaps, int count,
-            float[] size) {
-        join(canvas, dimension, bitmaps, count, size, 0.15f);
-    }
-
-    public static final void join(Canvas canvas, int dimension, List<Bitmap> bitmaps,
-            float gapSize) {
-        if (bitmaps == null)
-            return;
-        int count = Math.min(bitmaps.size(), JoinLayout.max());
-        float[] size = JoinLayout.size(count);
-        join(canvas, dimension, bitmaps, count, size, gapSize);
-    }
-
-    public static final void join(Canvas canvas, int dimension, List<Bitmap> bitmaps, int count,
-            float[] size, float gapSize) {
-        if (bitmaps == null)
-            return;
-        // 旋转角度
-        float[] rotation = JoinLayout.rotation(count);
-        // paint
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-
+        List<Paint> paints = new ArrayList<>();
         Matrix matrixJoin = new Matrix();
-        // scale as join size
-        matrixJoin.postScale(size[0], size[0]);
+        // scale as join getScales
+        matrixJoin.postScale(scales[0], scales[0]);
+
+        for (int index = 0; index < count; index++) {
+            Paint paint = new Paint();
+            paint.setAntiAlias(true);
+            Matrix matrix = new Matrix();
+            matrix.postScale((float) width / bitmaps.get(index).getWidth(),
+                    (float) width / bitmaps.get(index).getHeight());
+            matrix.postConcat(matrixJoin);
+            BitmapShader bitmapShader = new BitmapShader(bitmaps.get(index), Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            bitmapShader.setLocalMatrix(matrix);
+            paint.setShader(bitmapShader);
+            paints.add(paint);
+        }
+
+        return paints;
+    }
+
+    /**
+     *   绘制头像
+     * @param canvas  画布
+     * @param paints  画笔
+     * @param width   头像的宽度
+     */
+    public static final void join(Canvas canvas, List<Paint> paints, int width) {
+        if (paints == null) {
+            return;
+        }
+
+        int count = Math.min(paints.size(), JoinLayout.HEAD_COUNT_MAX);
+        float[] scales = JoinLayout.getScales(count);
+        if (scales == null) {
+            return;
+        }
+
+        int radius = (int) (width * scales[0] / 2);
+        Log.d(TAG, "width:" + width + ", getScales[0]: " + scales[0] + ", radius is " + radius);
 
         canvas.save();
-        // canvas.drawColor(Color.RED);
 
-        for (int index = 0; index < bitmaps.size(); index++) {
-            Bitmap bitmap = bitmaps.get(index);
-
-            // MATRIX
-            Matrix matrix = new Matrix();
-            // scale as destination
-            matrix.postScale((float) dimension / bitmap.getWidth(),
-                    (float) dimension / bitmap.getHeight());
-
+        for (int index = 0; index < paints.size(); index++) {
             canvas.save();
 
-            matrix.postConcat(matrixJoin);
-
-            float[] offset = JoinLayout.offset(count, index, dimension, size);
-            Log.d(TAG, "index:"+index+", offset[0]:"+offset[0] + ", offset[1]"+offset[1]);
+            float[] offset = JoinLayout.offset(count, index, width, scales);
+            Log.d(TAG, "index:" + index + ", offset[0]:" + offset[0] + ", offset[1]" + offset[1]);
             canvas.translate(offset[0], offset[1]);
 
-            // 缩放
-            Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
-                    bitmap.getHeight(), matrix, true);
-            // 裁剪
-            Bitmap bitmapOk = createMaskBitmap(newBitmap, newBitmap.getWidth(),
-                    newBitmap.getHeight(), (int) rotation[index], gapSize);
-
-            canvas.drawBitmap(bitmapOk, 0, 0, paint);
+            canvas.drawCircle(radius, radius, radius, paints.get(index));
             canvas.restore();
         }
 
         canvas.restore();
     }
-
-    public static final Bitmap createMaskBitmap(Bitmap bitmap, int viewBoxW, int viewBoxH,
-            int rotation, float gapSize) {
-
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(),
-                Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-        final Paint paint = new Paint();
-        paint.setAntiAlias(true);// 抗锯齿
-        paint.setFilterBitmap(true);
-        int center = Math.round(viewBoxW / 2f);
-        canvas.drawCircle(center, center, center, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, 0, 0, paint);
-
-        if (rotation != 360) {
-            Matrix matrix = new Matrix();
-            // 根据原图的中心位置旋转
-            matrix.setRotate(rotation, viewBoxW / 2, viewBoxH / 2);
-            canvas.setMatrix(matrix);
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-            canvas.drawCircle(viewBoxW * (1.5f - gapSize), center, center, paint);
-        }
-        return output;
-    }
-
-    public static final Bitmap createBitmap(int width, int height, List<Bitmap> bitmaps) {
-        int count = Math.min(bitmaps.size(), JoinLayout.max());
-        float[] size = JoinLayout.size(count);
-        return createBitmap(width, height, bitmaps, count, size, 0.15f);
-    }
-
-    public static final Bitmap createBitmap(int width, int height, List<Bitmap> bitmaps,
-            int count, float[] size) {
-        return createBitmap(width, height, bitmaps, count, size, 0.15f);
-    }
-
-    public static final Bitmap createBitmap(int width, int height, List<Bitmap> bitmaps,
-            int count, float[] size, float gapSize) {
-        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-        int dimen = Math.min(width, height);
-        join(canvas, dimen, bitmaps, count, size, gapSize);
-        return output;
-    }
-
 }

@@ -77,9 +77,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".testcase.combination.BitmapActivity">
-        </activity>
     </application>
 
 </manifest>
