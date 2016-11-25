@@ -1,7 +1,6 @@
 package com.zhengjy.test;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,10 +24,10 @@ import java.util.List;
  */
 
 public class WelcomeActivity extends Activity {
-    private static final String TAG = WelcomeActivity.class.getSimpleName();
+    private static final String TAG = "WelcomeActivity";
 
-    public static final String IS_FIRST_IN_KEY = "isFirstIn";
-    boolean isFirstIn = false;
+    public static final String IS_FIRST_IN_KEY = "mIsFirstIn";
+    boolean mIsFirstIn = false;
 
     private ViewPager mViewPager;
     private ViewPagerAdapter mAdapter;
@@ -37,20 +36,21 @@ public class WelcomeActivity extends Activity {
     private static final int[] mPics = {R.drawable.whatsnew_00,
             R.drawable.whatsnew_01, R.drawable.whatsnew_02,
             R.drawable.whatsnew_03};
-    private Button btnBegin;
+    private Button mBtnBegin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences preferences = getSharedPreferences("first_pref", MODE_PRIVATE);
-        isFirstIn = preferences.getBoolean(IS_FIRST_IN_KEY, true);
-        if (isFirstIn) {
+        mIsFirstIn = preferences.getBoolean(IS_FIRST_IN_KEY, true);
+        if (mIsFirstIn) {
             Log.d(TAG, "is first in");
             setContentView(R.layout.activity_welcome);
             initView();
         } else {
             Log.d(TAG, "not first in");
-            gotoLoginActivity(false);
+            MainActivity.start(this, null);
+            finish();
         }
 
     }
@@ -78,9 +78,9 @@ public class WelcomeActivity extends Activity {
             @Override
             public void onPageSelected(int position) {
                 if (position == mAdapter.getCount() - 1) {
-                    btnBegin.setVisibility(View.VISIBLE);
+                    mBtnBegin.setVisibility(View.VISIBLE);
                 } else {
-                    btnBegin.setVisibility(View.INVISIBLE);
+                    mBtnBegin.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -90,15 +90,16 @@ public class WelcomeActivity extends Activity {
             }
         });
 
-        btnBegin = (Button) findViewById(R.id.btn_begin);
-        btnBegin.setOnClickListener(new View.OnClickListener() {
+        mBtnBegin = (Button) findViewById(R.id.btn_begin);
+        mBtnBegin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences preferences = getSharedPreferences("first_pref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(IS_FIRST_IN_KEY, false);
                 editor.commit();
-                gotoLoginActivity(true);
+                MainActivity.start(WelcomeActivity.this, null);
+                finish();
             }
         });
 
@@ -108,13 +109,6 @@ public class WelcomeActivity extends Activity {
         circlePageIndicator.setFillColor(Color.WHITE);
         circlePageIndicator.setPageColor(getResources().getColor(R.color.fill_color));
         circlePageIndicator.setViewPager(mViewPager);
-    }
-
-    private void gotoLoginActivity(boolean isFirstIn) {
-        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-        intent.putExtra(IS_FIRST_IN_KEY, isFirstIn);
-        startActivity(intent);
-        finish();
     }
 
     class ViewPagerAdapter extends PagerAdapter {

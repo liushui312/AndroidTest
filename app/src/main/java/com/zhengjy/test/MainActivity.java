@@ -1,5 +1,7 @@
 package com.zhengjy.test;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,15 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.main_list) ListView mListView;
     private MainListAdapt mAdapt;
+
+    public static void start(Activity a, Bundle data){
+        Intent intent = new Intent();
+        intent.setClass(a, MainActivity.class);
+        if(data != null){
+            intent.putExtras(data);
+        }
+        a.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
