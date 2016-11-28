@@ -21,6 +21,18 @@
             android:layout_height="wrap_content"
             android:text="brick"/>
 
+        <Button
+            android:id="@+id/btn_wave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wave"/>
+
+        <Button
+            android:id="@+id/btn_polyline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="polyline"/>
+
     </LinearLayout>
 
     <com.zhengjy.test.testcase.CustomView.CircleImageView
@@ -31,6 +43,18 @@
 
     <com.zhengjy.test.testcase.CustomView.BrickView
         android:id="@+id/brickView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <com.zhengjy.test.testcase.CustomView.WaveView
+        android:id="@+id/waveView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <com.zhengjy.test.testcase.CustomView.PolylineView
+        android:id="@+id/polylineView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"/>

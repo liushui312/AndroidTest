@@ -18,6 +18,8 @@ public class CustomViewActivity extends Activity {
 
     @BindView(R.id.circleImageView) CircleImageView mCircleImageView;
     @BindView(R.id.brickView) BrickView mBrickView;
+    @BindView(R.id.waveView) WaveView mWaveView;
+    @BindView(R.id.polylineView) PolylineView mPolylineView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +32,33 @@ public class CustomViewActivity extends Activity {
     void circleBtnOnClick() {
         mCircleImageView.setVisibility(View.VISIBLE);
         mBrickView.setVisibility(View.GONE);
+        mWaveView.setVisibility(View.GONE);
+        mPolylineView.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.btn_brick)
     void brckBtnOnClick() {
         mCircleImageView.setVisibility(View.GONE);
         mBrickView.setVisibility(View.VISIBLE);
+        mWaveView.setVisibility(View.GONE);
+        mPolylineView.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.btn_wave)
+    void waveBtnOnClick() {
+        mCircleImageView.setVisibility(View.GONE);
+        mBrickView.setVisibility(View.GONE);
+        mWaveView.setVisibility(View.VISIBLE);
+        mPolylineView.setVisibility(View.GONE);
+
+        mWaveView.reset();
+    }
+
+    @OnClick(R.id.btn_polyline)
+    void polyLineViewOnClick() {
+        mCircleImageView.setVisibility(View.GONE);
+        mBrickView.setVisibility(View.GONE);
+        mWaveView.setVisibility(View.GONE);
+        mPolylineView.setVisibility(View.VISIBLE);
     }
 }
