@@ -1,7 +1,6 @@
 package com.zhengjy.test;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -13,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.zhengjy.common.helper.SharePreferencesHelper;
 import com.zhengjy.test.util.CirclePageIndicator;
 
 import java.util.ArrayList;
@@ -41,8 +41,7 @@ public class WelcomeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences preferences = getSharedPreferences("first_pref", MODE_PRIVATE);
-        mIsFirstIn = preferences.getBoolean(IS_FIRST_IN_KEY, true);
+        mIsFirstIn = SharePreferencesHelper.getInstance(this).getBoolean(IS_FIRST_IN_KEY, true);
         if (mIsFirstIn) {
             Log.d(TAG, "is first in");
             setContentView(R.layout.activity_welcome);
@@ -94,10 +93,7 @@ public class WelcomeActivity extends Activity {
         mBtnBegin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = getSharedPreferences("first_pref", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(IS_FIRST_IN_KEY, false);
-                editor.commit();
+                SharePreferencesHelper.getInstance(WelcomeActivity.this).putBoolean(IS_FIRST_IN_KEY, false);
                 MainActivity.start(WelcomeActivity.this, null);
                 finish();
             }
