@@ -15,14 +15,14 @@ import java.util.ArrayList;
 /**
  * Created by xudd on 2016/6/10.
  */
-public class MyFragment extends ListFragment {
+public class CrumbFragment extends ListFragment {
 
     private static final String KEY_LEVEL = "level";
     private FragmentManager mFragmentManager;
     private int mLevel;
 
-    public static MyFragment getInstance(int level){
-        MyFragment frag = new MyFragment();
+    public static CrumbFragment newInstance(int level){
+        CrumbFragment frag = new CrumbFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_LEVEL, level);
         frag.setArguments(bundle);
@@ -52,7 +52,7 @@ public class MyFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         FragmentTransaction ft = mFragmentManager.beginTransaction();
         ft.setBreadCrumbTitle(getString(R.string.crumb_title, mLevel + 1));
-        ft.replace(R.id.frag_container, MyFragment.getInstance(mLevel + 1));
+        ft.replace(R.id.frag_container, CrumbFragment.newInstance(mLevel + 1));
         ft.addToBackStack(null);
         ft.commitAllowingStateLoss();
     }

@@ -19,7 +19,7 @@ public class CrumbActivity extends FragmentActivity {
         int firstLevel = 1;
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.setBreadCrumbTitle(getString(R.string.crumb_title, firstLevel));
-        ft.replace(R.id.frag_container, MyFragment.getInstance(firstLevel));
+        ft.replace(R.id.frag_container, CrumbFragment.newInstance(firstLevel));
         ft.addToBackStack(null);
         ft.commitAllowingStateLoss();
     }
