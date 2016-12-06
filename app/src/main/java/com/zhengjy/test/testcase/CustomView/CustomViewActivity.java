@@ -20,6 +20,7 @@ public class CustomViewActivity extends Activity {
     @BindView(R.id.brickView) BrickView mBrickView;
     @BindView(R.id.waveView) WaveView mWaveView;
     @BindView(R.id.polylineView) PolylineView mPolylineView;
+    @BindView(R.id.reflectView) ReflectView mReflectView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class CustomViewActivity extends Activity {
         mBrickView.setVisibility(View.GONE);
         mWaveView.setVisibility(View.GONE);
         mPolylineView.setVisibility(View.GONE);
+        mReflectView.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.btn_brick)
@@ -42,6 +44,7 @@ public class CustomViewActivity extends Activity {
         mBrickView.setVisibility(View.VISIBLE);
         mWaveView.setVisibility(View.GONE);
         mPolylineView.setVisibility(View.GONE);
+        mReflectView.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.btn_wave)
@@ -50,6 +53,7 @@ public class CustomViewActivity extends Activity {
         mBrickView.setVisibility(View.GONE);
         mWaveView.setVisibility(View.VISIBLE);
         mPolylineView.setVisibility(View.GONE);
+        mReflectView.setVisibility(View.GONE);
 
         mWaveView.reset();
     }
@@ -60,5 +64,15 @@ public class CustomViewActivity extends Activity {
         mBrickView.setVisibility(View.GONE);
         mWaveView.setVisibility(View.GONE);
         mPolylineView.setVisibility(View.VISIBLE);
+        mReflectView.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.btn_reflect)
+    void reflectViewOnClick() {
+        mCircleImageView.setVisibility(View.GONE);
+        mBrickView.setVisibility(View.GONE);
+        mWaveView.setVisibility(View.GONE);
+        mPolylineView.setVisibility(View.GONE);
+        mReflectView.setVisibility(View.VISIBLE);
     }
 }

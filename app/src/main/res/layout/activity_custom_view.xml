@@ -33,6 +33,19 @@
             android:layout_height="wrap_content"
             android:text="polyline"/>
 
+     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_reflect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="reflect"/>
+
     </LinearLayout>
 
     <com.zhengjy.test.testcase.CustomView.CircleImageView
@@ -58,5 +71,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"/>
+
+    <com.zhengjy.test.testcase.CustomView.ReflectView
+        android:id="@+id/reflectView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <com.zhengjy.test.testcase.CustomView.MatrixImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="matrix"/>
 
 </LinearLayout>
