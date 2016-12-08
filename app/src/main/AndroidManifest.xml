@@ -72,6 +72,14 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".testcase.widget.WidgetActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.ZHENGJY_WIDGET"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

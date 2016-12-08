@@ -1,10 +1,12 @@
 package com.zhengjy.test.testcase.CustomView;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.zhengjy.test.R;
+import com.zhengjy.test.base.BaseFragmentActivity;
+import com.zhengjy.test.constant.Constant;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -14,65 +16,74 @@ import butterknife.OnClick;
  * Created by zhengjy on 2016/11/23.
  */
 
-public class CustomViewActivity extends Activity {
+public class CustomViewActivity extends BaseFragmentActivity {
+    @BindView(R.id.llyt_btns)
+    LinearLayout mLlytBtns;
 
-    @BindView(R.id.circleImageView) CircleImageView mCircleImageView;
-    @BindView(R.id.brickView) BrickView mBrickView;
-    @BindView(R.id.waveView) WaveView mWaveView;
-    @BindView(R.id.polylineView) PolylineView mPolylineView;
-    @BindView(R.id.reflectView) ReflectView mReflectView;
+    private CustomFragment mCircleFragment;
+    private CustomFragment mBrickFragment;
+    private CustomFragment mWaveFragment;
+    private CustomFragment mReflectFragment;
+    private CustomFragment mPolyLineFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_view);
         ButterKnife.bind(this);
+
+        mCurrentFragment = CustomFragment.newInstanst(Constant.CUSTOM_VIEW_CIRCLE_HEAD);
     }
 
     @OnClick(R.id.btn_circle)
     void circleBtnOnClick() {
-        mCircleImageView.setVisibility(View.VISIBLE);
-        mBrickView.setVisibility(View.GONE);
-        mWaveView.setVisibility(View.GONE);
-        mPolylineView.setVisibility(View.GONE);
-        mReflectView.setVisibility(View.GONE);
+        if (mCircleFragment == null) {
+            mCircleFragment = CustomFragment.newInstanst(Constant.CUSTOM_VIEW_CIRCLE_HEAD);
+        }
+        switchFragment(R.id.custom_view_fragment, mCircleFragment);
+        mLlytBtns.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.btn_brick)
     void brckBtnOnClick() {
-        mCircleImageView.setVisibility(View.GONE);
-        mBrickView.setVisibility(View.VISIBLE);
-        mWaveView.setVisibility(View.GONE);
-        mPolylineView.setVisibility(View.GONE);
-        mReflectView.setVisibility(View.GONE);
+        if (mBrickFragment == null) {
+            mBrickFragment = CustomFragment.newInstanst(Constant.CUSTOM_VIEW_BRICK);
+        }
+        switchFragment(R.id.custom_view_fragment, mBrickFragment);
+        mLlytBtns.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.btn_wave)
     void waveBtnOnClick() {
-        mCircleImageView.setVisibility(View.GONE);
-        mBrickView.setVisibility(View.GONE);
-        mWaveView.setVisibility(View.VISIBLE);
-        mPolylineView.setVisibility(View.GONE);
-        mReflectView.setVisibility(View.GONE);
-
-        mWaveView.reset();
+        if (mWaveFragment == null) {
+            mWaveFragment = CustomFragment.newInstanst(Constant.CUSTOM_VIEW_WAVE);
+        }
+        mWaveFragment.resetWave();
+        switchFragment(R.id.custom_view_fragment, mWaveFragment);
+        mLlytBtns.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.btn_polyline)
     void polyLineViewOnClick() {
-        mCircleImageView.setVisibility(View.GONE);
-        mBrickView.setVisibility(View.GONE);
-        mWaveView.setVisibility(View.GONE);
-        mPolylineView.setVisibility(View.VISIBLE);
-        mReflectView.setVisibility(View.GONE);
+        if (mPolyLineFragment == null) {
+            mPolyLineFragment = CustomFragment.newInstanst(Constant.CUSTOM_VIEW_POLYLINE);
+        }
+        switchFragment(R.id.custom_view_fragment, mPolyLineFragment);
+        mLlytBtns.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.btn_reflect)
     void reflectViewOnClick() {
-        mCircleImageView.setVisibility(View.GONE);
-        mBrickView.setVisibility(View.GONE);
-        mWaveView.setVisibility(View.GONE);
-        mPolylineView.setVisibility(View.GONE);
-        mReflectView.setVisibility(View.VISIBLE);
+        if (mReflectFragment == null) {
+            mReflectFragment = CustomFragment.newInstanst(Constant.CUSTOM_VIEW_REFLECT);
+        }
+        switchFragment(R.id.custom_view_fragment, mReflectFragment);
+        mLlytBtns.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mLlytBtns.setVisibility(View.VISIBLE);
     }
 }

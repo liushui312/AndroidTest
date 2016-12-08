@@ -1,18 +1,18 @@
-package com.zhengjy.test.testcase.fragment;
+package com.zhengjy.test.base;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.View;
 
 /**
- * Created by zhengjy on 2016/11/29.
+ * Created by zhengjy on 2016/12/6.
  */
 
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements View.OnClickListener{
     private static final String TAG = "BaseFragment";
 
     protected Context mContext;
@@ -25,17 +25,34 @@ public class BaseFragment extends Fragment {
         mFragmentManager = getFragmentManager();
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initToolBar();
+    }
 
-    public void switchFragment(BaseFragment toFragment) {
-        ((FragmentDemoActivity)mContext).switchFragment(toFragment);
+    public void initToolBar() {
+
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            initToolBar();
+        }
+    }
+
+    public void switchFragment(int resId, BaseFragment toFragment) {
+        ((BaseFragmentActivity)mContext).switchFragment(resId, toFragment);
     }
 
     public BaseFragment getCurrentFragment() {
-        return ((FragmentDemoActivity)mContext).getCurrentFragment();
+        return ((BaseFragmentActivity)mContext).getCurrentFragment();
     }
 
     public void setCurrentFragment(BaseFragment fragment) {
-        ((FragmentDemoActivity)mContext).setCurrentFragment(fragment);
+        ((BaseFragmentActivity)mContext).setCurrentFragment(fragment);
     }
 
     /**
@@ -57,16 +74,8 @@ public class BaseFragment extends Fragment {
         }
     }
 
-    public static void start(Activity activity) {
-        start(activity, null);
-    }
+    @Override
+    public void onClick(View v) {
 
-    public static void start(Activity a,Bundle data){
-        Intent intent = new Intent();
-        intent.setClass(a, FragmentDemoActivity.class);
-        if(data != null){
-            intent.putExtras(data);
-        }
-        a.startActivity(intent);
     }
 }

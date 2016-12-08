@@ -1,34 +1,34 @@
-package com.zhengjy.test.testcase.fragment;
+package com.zhengjy.test.base;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.zhengjy.test.R;
-
 /**
- * Created by zhengjy on 2016/11/29.
+ * Created by zhengjy on 2016/12/6.
  */
 
-public class FragmentDemoActivity extends AppCompatActivity {
+public class BaseFragmentActivity extends AppCompatActivity {
+    private static final String TAG = "BaseFragmentActivity";
 
-    private static final String TAG = "FragmentDemoActivity";
-
-    private BaseFragment mCurrentFragment;
-    private FragmentManager mFragmentManager;
+    protected FragmentManager mFragmentManager;
+    protected BaseFragment mCurrentFragment;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.activity_fragment_demo);
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mFragmentManager = getSupportFragmentManager();
     }
 
-    public void switchFragment(BaseFragment toFragment) {
+    /**
+     *   hide current fragment and show target fragment
+     *
+     * @param toFragment the fragment to switch
+     */
+    public void switchFragment(int resId, BaseFragment toFragment) {
         if (mCurrentFragment == null) {
             Log.e(TAG, "switchFragment. mCurrentFragment is null");
             return;
@@ -42,7 +42,7 @@ public class FragmentDemoActivity extends AppCompatActivity {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         if (!toFragment.isAdded()) {
             transaction.hide(mCurrentFragment)
-                    .add(R.id.content_fragment, toFragment)
+                    .add(resId, toFragment)
                     .addToBackStack(null)
                     .commit();
         } else {
@@ -65,9 +65,14 @@ public class FragmentDemoActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        boolean ret = mCurrentFragment.onBackPressed();
-        Log.d(TAG, "onBackPressed. ret:"+ret);
-        if (!ret) {
+        if (mCurrentFragment != null) {
+            boolean ret = mCurrentFragment.onBackPressed();
+            Log.d(TAG, "onBackPressed. ret:"+ret);
+            if (!ret) {
+                super.onBackPressed();
+            }
+        } else {
+            Log.d(TAG, "onBackPressed. mCurrentFragment is null");
             super.onBackPressed();
         }
     }
