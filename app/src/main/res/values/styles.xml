@@ -16,11 +16,15 @@
         <attr name="padding" format="dimension"/>
     </declare-styleable>
 
-    <declare-styleable name="CircleImageView">
+    <declare-styleable name="CircleImageViewAttrs">
         <attr name="civ_border_width" format="dimension"/>
         <attr name="civ_border_color" format="color"/>
         <attr name="civ_border_overlay" format="boolean"/>
         <attr name="civ_fill_color" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="HistoryEditAttrs">
+        <attr name="popupwindow_height" format="dimension"/>
     </declare-styleable>
 
 </resources>

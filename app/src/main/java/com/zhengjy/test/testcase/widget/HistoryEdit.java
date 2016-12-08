@@ -1,6 +1,8 @@
 package com.zhengjy.test.testcase.widget;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -10,7 +12,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.zhengjy.test.R;
 
 import java.util.List;
 
@@ -19,11 +24,14 @@ import java.util.List;
  */
 public class HistoryEdit extends EditText {
     private static final String TAG = "HistoryEdit";
+    private Resources mRes;
     private Context mContext;
     private PopupWindow popupWindow;
-    private LinearLayout linearLayout;
+    private ScrollView mScrollView;
+    private LinearLayout mLinearLayout;
     private IHistoryEditListener mIHistoryEditListener;
     private int MAX = 3;
+    private int mPopupWindowHeight;
 
     public HistoryEdit(Context context) {
         super(context);
@@ -34,12 +42,15 @@ public class HistoryEdit extends EditText {
     public HistoryEdit(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        initView();
-    }
 
-    public HistoryEdit(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        mContext = context;
+        mRes = context.getResources();
+        TypedArray typedArray = mRes.obtainAttributes(attrs, R.styleable.HistoryEditAttrs);
+        try {
+            mPopupWindowHeight = typedArray.getDimensionPixelOffset(R.styleable.HistoryEditAttrs_popupwindow_height, 90);
+            Log.d(TAG, "mPopupWindowHeight:" + mPopupWindowHeight);
+        }finally {
+            typedArray.recycle();
+        }
         initView();
     }
 
@@ -52,10 +63,12 @@ public class HistoryEdit extends EditText {
      * 初始化一个LinearLayout布局用于显示在popupwindow上
      */
     private void initView() {
-        linearLayout = new LinearLayout(mContext);
-        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+        mScrollView = new ScrollView(mContext);
+        mLinearLayout = new LinearLayout(mContext);
+        mLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        mLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        mScrollView.addView(mLinearLayout);
 
         addTextChangedListener(new TextWatcher() {
             @Override
@@ -88,7 +101,7 @@ public class HistoryEdit extends EditText {
      * @param strings
      */
     public void updateHistoryData(List<String> strings) {
-        linearLayout.removeAllViews();
+        mLinearLayout.removeAllViews();
         if (strings == null || strings.size() == 0) {
             if (popupWindow != null) {
                 popupWindow.dismiss();
@@ -113,7 +126,7 @@ public class HistoryEdit extends EditText {
                     }
                 }
             });
-            linearLayout.addView(textView);
+            mLinearLayout.addView(textView);
         }
 
         //添加消除历史记录的textview
@@ -130,7 +143,7 @@ public class HistoryEdit extends EditText {
                 }
             }
         });
-        linearLayout.addView(textView);
+        mLinearLayout.addView(textView);
 
         showWindow();
     }
@@ -143,7 +156,7 @@ public class HistoryEdit extends EditText {
             return;
         }
 
-        popupWindow = new PopupWindow(linearLayout, getWidth(), LinearLayout.LayoutParams.WRAP_CONTENT);
+        popupWindow = new PopupWindow(mScrollView, getWidth(), mPopupWindowHeight);
         //popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.quanaplha));
         popupWindow.update();
         popupWindow.setFocusable(false);
