@@ -6,12 +6,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 /**
  * Created by zhengjy on 2016/12/6.
  */
 
-public class BaseFragmentActivity extends AppCompatActivity {
+public class BaseFragmentActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "BaseFragmentActivity";
 
     protected FragmentManager mFragmentManager;
@@ -75,5 +76,10 @@ public class BaseFragmentActivity extends AppCompatActivity {
             Log.d(TAG, "onBackPressed. mCurrentFragment is null");
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

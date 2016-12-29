@@ -4,4 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="crumb_view_padding">12dp</dimen>
+
+    <dimen name="search_history_list_item_left">10dp</dimen>
+    <dimen name="search_history_list_item_padding">10dp</dimen>
 </resources>

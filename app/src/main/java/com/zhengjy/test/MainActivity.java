@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new Item("ComImage", IntentUtils.COM_IMAGE_ACTION));
         list.add(new Item("CustomView", IntentUtils.CUSTOM_VIEW_ACTION));
         list.add(new Item("WidgetAcivity", IntentUtils.WIDGET_ACTION));
+        list.add(new Item("Bar", IntentUtils.BAR_ACTION));
         mAdapt = new MainListAdapt(this);
         mAdapt.updateList(list);
         mListView.setAdapter(mAdapt);

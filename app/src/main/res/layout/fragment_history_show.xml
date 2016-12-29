@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.zhengjy.test.testcase.widget.SearchHistoryView
+        android:id="@+id/history_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#5fff0000">
+        <TextView
+            style="@style/text_flag_01"
+            android:text="I thick i can" />
+
+        <TextView
+            style="@style/text_flag_01"
+            android:textSize="17sp"
+            android:text="Welcome to the world " />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/text_flag_01"
+            android:text="IT工程师" />
+        <TextView
+            style="@style/text_flag_01"
+            android:text="学习ing" />
+
+        <TextView
+            style="@style/text_flag_01"
+            android:text="挣钱ing" />
+
+        <TextView
+            style="@style/text_flag_01"
+            android:text="努力ing" />
+
+        <TextView
+            style="@style/text_flag_01"
+            android:text="I thick i can" />
+        <TextView
+            style="@style/text_flag_01"
+            android:text="I thick i can cancancna" />
+
+        <TextView
+            style="@style/text_flag_01"
+            android:text="I thick i can" />
+        <TextView
+            style="@style/text_flag_01"
+            android:text="I thick i can" />
+        <TextView
+            style="@style/text_flag_01"
+            android:textSize="24sp"
+            android:text="I thick i can can can can can can can " />
+
+       <!-- <TextView
+            style="@style/text_flag_01"
+            android:text="abc " />-->
+
+        <TextView
+            style="@style/text_flag_01"
+            android:text="I thick i cansdfklsajjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjlkkkkkkkkkkkkkkkjjjjjjjjjjjjjj" />
+
+
+    </com.zhengjy.test.testcase.widget.SearchHistoryView>
+
+</LinearLayout>

@@ -19,6 +19,7 @@ public class WidgetActivity extends BaseFragmentActivity {
     LinearLayout mLlytBtns;
 
     private HistoryEidtFragment mHistoryEidtFragment;
+    private HistoryshowFragment mHistoryshowFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,17 +31,8 @@ public class WidgetActivity extends BaseFragmentActivity {
         mCurrentFragment = new HistoryEidtFragment();
         //mFragmentManager.beginTransaction().add(R.id.widget_fragment, mCurrentFragment).commit();
 
-        findViewById(R.id.btn_history_edit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "historyEditOnClick");
-                if (mHistoryEidtFragment == null) {
-                    mHistoryEidtFragment = new HistoryEidtFragment();
-                }
-                switchFragment(R.id.widget_fragment, mHistoryEidtFragment);
-                mLlytBtns.setVisibility(View.GONE);
-            }
-        });
+        findViewById(R.id.btn_history_edit).setOnClickListener(this);
+        findViewById(R.id.btn_history_show).setOnClickListener(this);
     }
 
     @Override
@@ -49,5 +41,29 @@ public class WidgetActivity extends BaseFragmentActivity {
         mLlytBtns.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.btn_history_edit:
+                Log.d(TAG, "historyEditOnClick");
+                if (mHistoryEidtFragment == null) {
+                    mHistoryEidtFragment = new HistoryEidtFragment();
+                }
+                switchFragment(R.id.widget_fragment, mHistoryEidtFragment);
+                mLlytBtns.setVisibility(View.GONE);
+                break;
 
+            case R.id.btn_history_show:
+                if (mHistoryshowFragment == null) {
+                    mHistoryshowFragment = new HistoryshowFragment();
+                }
+                switchFragment(R.id.widget_fragment, mHistoryshowFragment);
+                mLlytBtns.setVisibility(View.GONE);
+                break;
+
+            default:
+                break;
+        }
+    }
 }

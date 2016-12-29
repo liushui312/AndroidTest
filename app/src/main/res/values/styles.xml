@@ -27,4 +27,13 @@
         <attr name="popupwindow_height" format="dimension"/>
     </declare-styleable>
 
+    <style name="text_flag_01">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:background">#5fff0000</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+
 </resources>
