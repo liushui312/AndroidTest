@@ -1,10 +1,5 @@
 package com.zhengjy.common.utils;
 
-/**
- * SystemUtils
- * 
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-5-15
- */
 public class SystemUtils {
 
     /** recommend default thread pool size according to system available processors, {@link #getDefaultThreadPoolSize()} **/

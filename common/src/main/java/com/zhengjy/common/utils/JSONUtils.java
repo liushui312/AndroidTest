@@ -10,11 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Json Utils
- * 
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2012-5-12
- */
 public class JSONUtils {
 
     public static boolean isPrintException = true;

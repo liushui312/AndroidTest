@@ -1,15 +1,10 @@
 package com.zhengjy.common.utils;
 
+import android.text.TextUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import android.text.TextUtils;
-
-/**
- * List Utils
- * 
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2011-7-22
- */
 public class ListUtils {
 
     /** default join separator **/

@@ -5,11 +5,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-/**
- * Map Utils
- * 
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2011-7-22
- */
 public class MapUtils {
 
     /** default separator between key and value **/

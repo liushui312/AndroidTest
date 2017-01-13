@@ -1,14 +1,9 @@
 package com.zhengjy.common.utils;
 
-import java.util.Collection;
-
 import android.text.TextUtils;
 
-/**
- * CollectionUtils
- * 
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2012-7-22
- */
+import java.util.Collection;
+
 public class CollectionUtils {
 
     /** default join separator **/

@@ -52,6 +52,7 @@ public class HistoryshowFragment extends BaseFragment {
         searchHistory.add("切图");
         searchHistory.add("产品设计一部");
         searchHistory.add("罗伯特");
+        searchHistory.add("罗伯特");
 
         mSearchHistoryView.setData(searchHistory);
         mSearchHistoryView.setOnItemClickListener(new SearchHistoryView.OnItemClickListener() {

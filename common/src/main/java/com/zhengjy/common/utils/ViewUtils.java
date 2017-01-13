@@ -1,9 +1,5 @@
 package com.zhengjy.common.utils;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -15,6 +11,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ViewUtils
@@ -38,7 +38,6 @@ import android.widget.TextView;
  * <li>{@link ViewUtils#setSearchViewOnClickListener(View, OnClickListener)}</li>
  * </ul>
  * 
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-12-24
  */
 public class ViewUtils {
 

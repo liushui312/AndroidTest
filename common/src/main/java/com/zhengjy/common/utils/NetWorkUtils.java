@@ -1,6 +1,9 @@
 package com.zhengjy.common.utils;
 
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
@@ -13,12 +16,11 @@ import android.text.TextUtils;
  * <li>You should add <strong>android.permission.ACCESS_NETWORK_STATE</strong> in manifest, to get network status.</li>
  * </ul>
  * 
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2014-11-03
  */
 public class NetWorkUtils {
 
     public static final String NETWORK_TYPE_WIFI       = "wifi";
-    public static final String NETWORK_TYPE_3G         = "eg";
+    public static final String NETWORK_TYPE_3G         = "3g";
     public static final String NETWORK_TYPE_2G         = "2g";
     public static final String NETWORK_TYPE_WAP        = "wap";
     public static final String NETWORK_TYPE_UNKNOWN    = "unknown";
@@ -26,9 +28,6 @@ public class NetWorkUtils {
 
     /**
      * Get network type
-     * 
-     * @param context
-     * @return
      */
     public static int getNetworkType(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager)context
@@ -39,9 +38,6 @@ public class NetWorkUtils {
 
     /**
      * Get network type name
-     * 
-     * @param context
-     * @return
      */
     public static String getNetworkTypeName(Context context) {
         ConnectivityManager manager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -49,7 +45,7 @@ public class NetWorkUtils {
         String type = NETWORK_TYPE_DISCONNECT;
         if (manager == null || (networkInfo = manager.getActiveNetworkInfo()) == null) {
             return type;
-        };
+        }
 
         if (networkInfo.isConnected()) {
             String typeName = networkInfo.getTypeName();
@@ -68,9 +64,6 @@ public class NetWorkUtils {
 
     /**
      * Whether is fast mobile network
-     * 
-     * @param context
-     * @return
      */
     private static boolean isFastMobileNetwork(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -114,5 +107,77 @@ public class NetWorkUtils {
             default:
                 return false;
         }
+    }
+
+    /**
+     * @return 网络是否可用
+     */
+    public static boolean isNetworkAvailable(Context context) {
+        boolean ret = false;
+        try {
+            ConnectivityManager connectManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo[] infos = connectManager.getAllNetworkInfo();
+            if(infos != null){
+                for (NetworkInfo info : infos) {
+                    if (info != null && info.isConnected() && info.isAvailable()) {
+                        ret = true;
+                        break;
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ret;
+    }
+
+    /**
+     * 判断网络是否连接
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isConnected(Context context) {
+
+        ConnectivityManager connectivity = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (null != connectivity) {
+
+            NetworkInfo info = connectivity.getActiveNetworkInfo();
+            if (null != info && info.isConnected()) {
+                if (info.getState() == NetworkInfo.State.CONNECTED) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判断是否是wifi连接
+     */
+    public static boolean isWifi(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (cm == null)
+            return false;
+        return cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
+
+    }
+
+    /**
+     * 打开网络设置界面
+     */
+    public static void openSetting(Activity activity) {
+        Intent intent = new Intent("/");
+        ComponentName cm = new ComponentName("com.android.settings",
+                "com.android.settings.WirelessSettings");
+        intent.setComponent(cm);
+        intent.setAction("android.intent.action.VIEW");
+        activity.startActivityForResult(intent, 0);
     }
 }
