@@ -10,6 +10,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
     <declare-styleable name="CrumbViewAttrs">
         <attr name="light_color" format="color"/>
         <attr name="dark_color" format="color"/>
