@@ -64,7 +64,7 @@ public class SmallFeaturesActivity extends Activity {
     public static final String ACTION_REMOVE_SHORTCUT = "com.android.launcher.action.UNINSTALL_SHORTCUT";
     private void addShortcut(String name) {
         Intent addShortcutIntent = new Intent(ACTION_ADD_SHORTCUT);
-        //addShortcutIntent.putExtra("duplicate", false);//不允许重复创建
+        addShortcutIntent.putExtra("duplicate", false);//不允许重复创建
         addShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
         addShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(this,
                         R.mipmap.ic_launcher));

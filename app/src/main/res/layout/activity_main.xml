@@ -8,13 +8,26 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.zhengjy.test.MainActivity">
 
     <ListView
         android:id="@+id/main_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
     </ListView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="asdafafawe"
+        android:background="@null"
+        android:cursorVisible="true"
+        android:gravity="center"
+        android:inputType="text"
+        android:maxLength="128"
+        android:maxLines="1"
+        android:textColor="#4d4d4d"/>
 
 </LinearLayout>
