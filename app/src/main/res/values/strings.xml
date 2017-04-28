@@ -5,4 +5,6 @@
     <string name="list_item_txt">第%1$d层第%2$d行</string>
     <string name="btn_confirm">确认</string>
     <string name="btn_cancel">取消</string>
+    <string name="cancel">cancel</string>
+    <string name="confirm">ok</string>
 </resources>

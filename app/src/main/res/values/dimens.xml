@@ -7,4 +7,9 @@
 
     <dimen name="search_history_list_item_left">10dp</dimen>
     <dimen name="search_history_list_item_padding">10dp</dimen>
+    <dimen name="common_dialog_message_height">98dp</dimen>
+    <dimen name="common_dialog_btn_text_size">17sp</dimen>
+    <dimen name="common_dialog_btn_height">48dp</dimen>
+    <dimen name="common_dialog_width">280dp</dimen>
+    <dimen name="common_dialog_height">146dp</dimen>
 </resources>
