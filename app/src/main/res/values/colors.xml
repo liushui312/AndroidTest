@@ -10,4 +10,5 @@
     <color name="fill_color">#2fffffff</color>
 
     <color name="list_press">#e8e8e8</color>
+    <color name="text_dark">#333333</color>
 </resources>

@@ -15,4 +15,8 @@
     <dimen name="welcome_indicator_left_margin">4dp</dimen>
     <dimen name="welcome_indicator_right_margin">4dp</dimen>
     <dimen name="welcome_indicator_width">8dp</dimen>
+    <dimen name="setting_padding_left">12dp</dimen>
+    <dimen name="setting_padding_right">12dp</dimen>
+    <dimen name="item_codec_list_content_left">8dp</dimen>
+    <dimen name="setting_item_text_size">15sp</dimen>
 </resources>
